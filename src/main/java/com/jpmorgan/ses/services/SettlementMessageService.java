@@ -45,6 +45,9 @@ public class SettlementMessageService {
     private MarketSettlementMessageDto createMarketSettlementMessage(TradeRequestDto tradeRequestDto, SsiData ssiData) {
         MarketSettlementMessageDto marketSettlementMessageDto = new MarketSettlementMessageDto();
         copyProperties(tradeRequestDto, marketSettlementMessageDto);
+        marketSettlementMessageDto.setMessageId(UUID.randomUUID().toString());
+        marketSettlementMessageDto.setAmount(new BigDecimal(tradeRequestDto.getAmount()));
+        marketSettlementMessageDto.setSupportingInformation(ssiData.getInfo());
 
         PayerPartyDto payerPartyDto = new PayerPartyDto();
         payerPartyDto.setAccountNumber(ssiData.getPayerAccNum());
