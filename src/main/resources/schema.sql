@@ -1,6 +1,6 @@
 create schema if not exists ses;
 
-create table if not exists ses.sis_data
+create table if not exists ses.ssi_data
 (
     id                  int            auto_increment primary key,
     ssi_code            varchar2(20)   not null,
