@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SsiDataRepository extends JpaRepository<SsiData, Long> {
-    public List<SsiData> findBySsiCode(String ssiCode);
+    SsiData findBySsiCode(String ssiCode);
 }

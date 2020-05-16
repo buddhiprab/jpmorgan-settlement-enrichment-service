@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(schema = "ses", name = "trade_request")
+@Table(schema = "api", name = "trade_request")
 public class TradeRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

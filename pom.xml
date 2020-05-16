@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jpmorgan</groupId>
-	<artifactId>ses</artifactId>
+	<artifactId>settlement-enrichment-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>buddhi-jpmorgan-ses</name>
+	<name>buddhi-jpmorgan-ses-api</name>
 	<description>Settlements Enrichment Service</description>
 
 	<properties>

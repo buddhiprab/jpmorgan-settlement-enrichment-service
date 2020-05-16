@@ -9,10 +9,7 @@ import com.jpmorgan.ses.services.SettlementMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +34,23 @@ public class SettlementMessageController {
         }
     }
 
+    @GetMapping("/{tradeId}")
+    public ResponseEntity create(@PathVariable String tradeId){
+        try{
+            MarketSettlementMessageDto message = settlementMessageService.getMarketSettlementMessage(tradeId);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (ApiException e){
+            ErrorResponseDto errorResponse = createErrorResponse(e);
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     private ErrorResponseDto createErrorResponse(ApiException e) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto();
         errorResponseDto.setErrorCode(e.getCode());
         errorResponseDto.setErrorMessage(e.getMessage());
-        if(!e.getFieldErrors().isEmpty()){
+        if(e.getFieldErrors()!=null){
             List<FieldErrorDto> fieldErrorDtos = e.getFieldErrors().stream().map(o->{
                 FieldErrorDto fieldErrorDto = new FieldErrorDto();
                 copyProperties(o,fieldErrorDto);
