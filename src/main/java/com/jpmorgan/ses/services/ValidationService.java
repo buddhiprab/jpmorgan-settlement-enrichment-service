@@ -1,14 +1,16 @@
 package com.jpmorgan.ses.services;
 
-import com.jpmorgan.ses.ErrorMessage;
+import com.jpmorgan.ses.enums.ErrorMessage;
 import com.jpmorgan.ses.dto.TradeRequestDto;
 import com.jpmorgan.ses.exception.ApiException;
 import com.jpmorgan.ses.validator.ValidationResult;
 import com.jpmorgan.ses.validator.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class ValidationService {
     @Autowired
     Validator<TradeRequestDto> tradeRequestDtoValidatorConfig;

@@ -1,6 +1,6 @@
 package com.jpmorgan.ses.validator;
 
-import com.jpmorgan.ses.ErrorMessage;
+import com.jpmorgan.ses.enums.ErrorMessage;
 import com.jpmorgan.ses.models.FieldError;
 
 import java.util.LinkedList;
@@ -22,7 +22,6 @@ public class ObjectValidator<T> {
 
     public <R> ValidationResult validateObject(T target, ValidationResult previous){
         if(target==null && isNotBlank(objectName)){
-            previous.setValidationStatus(false);
             FieldError fieldError = getFieldError(ErrorMessage.VAL_ERR_OBJECT_NAME_MANDATORY.getCode()+" "+objectName+" "+ErrorMessage.VAL_ERR_OBJECT_NAME_MANDATORY.getMessage(),objectName);
             previous.getFieldErrors().add(fieldError);
             return previous;
@@ -33,7 +32,6 @@ public class ObjectValidator<T> {
             return validator.validate(value, objectName);
         }).filter(Objects::nonNull).collect(Collectors.toList());
         if(!errors.isEmpty()){
-            previous.setValidationStatus(false);
             previous.getFieldErrors().addAll(errors);
         }
         return previous;

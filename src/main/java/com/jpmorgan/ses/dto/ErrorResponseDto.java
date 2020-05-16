@@ -8,5 +8,5 @@ import java.util.List;
 public class ErrorResponseDto {
     private String errorCode;
     private String errorMessage;
-    private List<FieldErrorDto> fieldErrorDtos;
+    private List<FieldErrorDto> fieldErrors;
 }

@@ -1,6 +1,6 @@
 package com.jpmorgan.ses.validator;
 
-import com.jpmorgan.ses.ErrorMessage;
+import com.jpmorgan.ses.enums.ErrorMessage;
 import com.jpmorgan.ses.models.FieldError;
 
 import java.util.Objects;
@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.jpmorgan.ses.validator.ValidationUtils.getFieldError;
+import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class FieldValidator<T, R> {
@@ -41,11 +42,23 @@ public class FieldValidator<T, R> {
             if(v instanceof  String){
                 return isNotBlank((String) v);
             } else {
-                return Objects.nonNull(v);
+                return nonNull(v);
             }
         };
         this.errorCode = ErrorMessage.VAL_ERR_FIELD_MANDATORY.getCode();
         this.message = String.format(ErrorMessage.VAL_ERR_FIELD_MANDATORY.getMessage(), fieldCode);
+        return this;
+    }
+
+    public FieldValidator<T, R> invalidFormat(String pattern) {
+        this.check = v -> nonNull(v) && String.valueOf(v).matches(pattern);
+        this.errorCode = ErrorMessage.VAL_ERR_FIELD_INVALID_FORMAT.getCode();
+        this.message = ErrorMessage.VAL_ERR_FIELD_INVALID_FORMAT.getMessage();
+        return this;
+    }
+
+    public FieldValidator<T, R> check(Predicate<R> check){
+        this.check = check;
         return this;
     }
 }

@@ -10,11 +10,7 @@ public class ValidationResult {
     private List<FieldError> fieldErrors;
 
     public boolean hasValidationErrors(){
-        return validationStatus;
-    }
-
-    public void setValidationStatus(boolean validationStatus) {
-        this.validationStatus = validationStatus;
+        return !fieldErrors.isEmpty();
     }
 
     public List<FieldError> getFieldErrors() {
@@ -26,7 +22,7 @@ public class ValidationResult {
 
     public static ValidationResult initial(){
         ValidationResult initial=new ValidationResult();
-        initial.validationStatus=true;
+        initial.fieldErrors = new LinkedList<>();
         return initial;
     }
 }

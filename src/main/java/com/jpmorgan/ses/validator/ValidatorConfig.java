@@ -17,7 +17,7 @@ public class ValidatorConfig {
                 tradeRequestDtoObjectValidator.validateObject(target, result);
                 return result;
             }
-        };.
+        };
 
     }
 }

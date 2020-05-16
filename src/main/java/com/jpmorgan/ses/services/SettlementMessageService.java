@@ -1,6 +1,6 @@
 package com.jpmorgan.ses.services;
 
-import com.jpmorgan.ses.ErrorMessage;
+import com.jpmorgan.ses.enums.ErrorMessage;
 import com.jpmorgan.ses.dto.MarketSettlementMessageDto;
 import com.jpmorgan.ses.dto.PayerPartyDto;
 import com.jpmorgan.ses.dto.ReceiverPartyDto;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
@@ -60,12 +59,17 @@ public class SettlementMessageService {
     }
 
     public MarketSettlementMessageDto getMarketSettlementMessage(String tradeId) throws ApiException {
-        //get trade request
-        TradeRequest tradeRequest = tradeRequestRepository.findByTradeId(tradeId).get(0);
-        //get SSI record
-        SsiData ssiData = ssiDataRepository.findBySsiCode(tradeRequest.getSsiCode());
+        log.info("Start get MarketSettlementMessage");
 
-        return convertToMarketSettlementMessage(tradeRequest, ssiData);
+        //get trade request
+        TradeRequest tradeRequestDb = tradeRequestRepository.findByTradeId(tradeId);
+        if(tradeRequestDb==null){
+            throw new ApiException(ErrorMessage.TRADE_ID_NOT_EXISTS.getCode(),ErrorMessage.TRADE_ID_NOT_EXISTS.getMessage(),null);
+        }
+        //get SSI record
+        SsiData ssiData = ssiDataRepository.findBySsiCode(tradeRequestDb.getSsiCode());
+
+        return convertToMarketSettlementMessage(tradeRequestDb, ssiData);
     }
 
     private SettlementMessage persistSettlementMessage(MarketSettlementMessageDto marketSettlementMessageDto) {

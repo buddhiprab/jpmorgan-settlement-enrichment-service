@@ -56,7 +56,7 @@ public class SettlementMessageController {
                 copyProperties(o,fieldErrorDto);
                 return fieldErrorDto;
             }).collect(Collectors.toList());
-            errorResponseDto.setFieldErrorDtos(fieldErrorDtos);
+            errorResponseDto.setFieldErrors(fieldErrorDtos);
         }
         return errorResponseDto;
     }
