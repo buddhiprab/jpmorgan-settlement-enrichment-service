@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ValidatorConfig {
     @Bean
-    public Validator<TradeRequestDto> tradeRequestDtoValidatorConfig(){
+    public Validator<TradeRequestDto> tradeRequestDtoValidatorConfig() {
         ObjectValidator<TradeRequestDto> tradeRequestDtoObjectValidator = TradeRequestDtoValidator.create("");
 
         return new Validator<TradeRequestDto>() {

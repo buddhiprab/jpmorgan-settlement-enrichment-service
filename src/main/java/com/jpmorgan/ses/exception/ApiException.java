@@ -8,10 +8,10 @@ public class ApiException extends Exception {
     private String code;
     private List<FieldError> fieldErrors;
 
-    public ApiException(String code, String msg, List<FieldError> fieldErrors){
+    public ApiException(String code, String msg, List<FieldError> fieldErrors) {
         super(msg);
-        this.code=code;
-        this.fieldErrors=fieldErrors;
+        this.code = code;
+        this.fieldErrors = fieldErrors;
     }
 
     public String getCode() {

@@ -8,15 +8,15 @@ public class ValidationUtils {
 
     public static FieldError getFieldError(String errorCode, String message, String fieldCode, String objectName) {
         FieldError fieldError = new FieldError();
-        fieldError.setErrorDesc(errorCode+' '+message);
-        if(isNotBlank(objectName)){
-            fieldCode=objectName+"."+fieldCode;
+        fieldError.setErrorDesc(errorCode + ' ' + message);
+        if (isNotBlank(objectName)) {
+            fieldCode = objectName + "." + fieldCode;
         }
         fieldError.setFieldCode(fieldCode);
         return fieldError;
     }
 
-    public static FieldError getFieldError(String errorDesc, String fieldCode){
+    public static FieldError getFieldError(String errorDesc, String fieldCode) {
         FieldError fieldError = new FieldError();
         fieldError.setErrorDesc(errorDesc);
         fieldError.setFieldCode(fieldCode);

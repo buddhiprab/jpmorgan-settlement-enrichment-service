@@ -2,15 +2,13 @@ package com.jpmorgan.ses.validator;
 
 import com.jpmorgan.ses.dto.TradeRequestDto;
 
-import static java.util.Objects.nonNull;
-
 public class TradeRequestDtoValidator<T extends TradeRequestDto> extends ObjectValidator<T> {
 
     public TradeRequestDtoValidator(String objectName) {
         super(objectName);
     }
 
-    public static <T extends TradeRequestDto> ObjectValidator<T> create(String objectName){
+    public static <T extends TradeRequestDto> ObjectValidator<T> create(String objectName) {
         ObjectValidator<T> validator = new ObjectValidator<>("");
         validator.field("tradeId", TradeRequestDto::getTradeId).mandatory();
         validator.field("ssiCode", TradeRequestDto::getSsiCode).mandatory();

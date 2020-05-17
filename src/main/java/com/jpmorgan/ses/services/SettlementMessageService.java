@@ -1,10 +1,10 @@
 package com.jpmorgan.ses.services;
 
-import com.jpmorgan.ses.enums.ErrorMessage;
 import com.jpmorgan.ses.dto.MarketSettlementMessageDto;
 import com.jpmorgan.ses.dto.PayerPartyDto;
 import com.jpmorgan.ses.dto.ReceiverPartyDto;
 import com.jpmorgan.ses.dto.TradeRequestDto;
+import com.jpmorgan.ses.enums.ErrorMessage;
 import com.jpmorgan.ses.exception.ApiException;
 import com.jpmorgan.ses.models.SettlementMessage;
 import com.jpmorgan.ses.models.SsiData;
@@ -40,8 +40,8 @@ public class SettlementMessageService {
         log.info("Start creating new MarketSettlementMessage");
         //check ssi record exists
         SsiData ssiData = ssiDataRepository.findBySsiCode(tradeRequestDto.getSsiCode());
-        if(ssiData==null){
-            throw new ApiException(ErrorMessage.SSI_NOT_EXISTS.getCode(),ErrorMessage.SSI_NOT_EXISTS.getMessage(),null);
+        if (ssiData == null) {
+            throw new ApiException(ErrorMessage.SSI_NOT_EXISTS.getCode(), ErrorMessage.SSI_NOT_EXISTS.getMessage(), null);
         }
 
         //validate trade request
@@ -63,8 +63,8 @@ public class SettlementMessageService {
 
         //get trade request
         TradeRequest tradeRequestDb = tradeRequestRepository.findByTradeId(tradeId);
-        if(tradeRequestDb==null){
-            throw new ApiException(ErrorMessage.TRADE_ID_NOT_EXISTS.getCode(),ErrorMessage.TRADE_ID_NOT_EXISTS.getMessage(),null);
+        if (tradeRequestDb == null) {
+            throw new ApiException(ErrorMessage.TRADE_ID_NOT_EXISTS.getCode(), ErrorMessage.TRADE_ID_NOT_EXISTS.getMessage(), null);
         }
         //get SSI record
         SsiData ssiData = ssiDataRepository.findBySsiCode(tradeRequestDb.getSsiCode());
@@ -79,7 +79,7 @@ public class SettlementMessageService {
         return settlementMessageRepository.save(settlementMessage);
     }
 
-    private TradeRequest persistTradeRequest(TradeRequestDto tradeRequestDto){
+    private TradeRequest persistTradeRequest(TradeRequestDto tradeRequestDto) {
         TradeRequest tradeRequest = new TradeRequest();
         copyProperties(tradeRequestDto, tradeRequest);
         tradeRequest.setCreationTime(new Date());
