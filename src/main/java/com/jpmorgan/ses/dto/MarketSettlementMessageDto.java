@@ -1,9 +1,11 @@
 package com.jpmorgan.ses.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
+@Builder
 @Data
 public class MarketSettlementMessageDto {
     private String tradeId;

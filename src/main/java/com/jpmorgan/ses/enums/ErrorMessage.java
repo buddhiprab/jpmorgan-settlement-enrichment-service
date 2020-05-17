@@ -5,6 +5,7 @@ public enum ErrorMessage {
     INVALID_REQUEST_JSON("ERR_API_0002", "invalid Reqeust JSON"),
     SSI_NOT_EXISTS("ERR_API_VAL", "invalid SSI Code"),
     TRADE_ID_NOT_EXISTS("ERR_API_VAL", "invalid Trade Id"),
+    TRADE_ID_NOT_ALREADY_EXISTS("ERR_API_VAL", "Trade request already exists for Trade Id"),
     VALIDATION_ERRORS("ERR_API_VAL", "Request have validation errors"),
     VAL_ERR_OBJECT_NAME_MANDATORY("ERR_API_VAL", "Object name mandatory"),
     VAL_ERR_FIELD_MANDATORY("ERR_API_VAL", "Field '%s' is mandatory"),

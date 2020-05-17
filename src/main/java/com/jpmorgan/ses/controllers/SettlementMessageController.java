@@ -40,7 +40,7 @@ public class SettlementMessageController {
     }
 
     @GetMapping("/{tradeId}")
-    public ResponseEntity create(@PathVariable String tradeId) {
+    public ResponseEntity get(@PathVariable String tradeId) {
         try {
             MarketSettlementMessageDto message = settlementMessageService.getMarketSettlementMessage(tradeId);
             return new ResponseEntity<>(message, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class SettlementMessageController {
         errorResponseDto.setErrorMessage(e.getMessage());
         if (e.getFieldErrors() != null) {
             List<FieldErrorDto> fieldErrorDtos = e.getFieldErrors().stream().map(o -> {
-                FieldErrorDto fieldErrorDto = new FieldErrorDto();
+                FieldErrorDto fieldErrorDto = FieldErrorDto.builder().build();
                 copyProperties(o, fieldErrorDto);
                 return fieldErrorDto;
             }).collect(Collectors.toList());

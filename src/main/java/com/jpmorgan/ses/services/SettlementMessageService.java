@@ -43,6 +43,11 @@ public class SettlementMessageService {
         if (ssiData == null) {
             throw new ApiException(ErrorMessage.SSI_NOT_EXISTS.getCode(), ErrorMessage.SSI_NOT_EXISTS.getMessage(), null);
         }
+        //check trade request for the trade id already exists
+        TradeRequest tradeRequestCheck = tradeRequestRepository.findByTradeId(tradeRequestDto.getTradeId());
+        if (tradeRequestCheck != null) {
+            throw new ApiException(ErrorMessage.TRADE_ID_NOT_ALREADY_EXISTS.getCode(), ErrorMessage.TRADE_ID_NOT_ALREADY_EXISTS.getMessage(), null);
+        }
 
         //validate trade request
         validationService.validate(tradeRequestDto);
@@ -52,7 +57,7 @@ public class SettlementMessageService {
         TradeRequest tradeRequestDb = persistTradeRequest(tradeRequestDto);
         //create enriched market settlement message
         MarketSettlementMessageDto marketSettlementMessageDto = convertToMarketSettlementMessage(tradeRequestDb, ssiData);
-        //save market settlement message
+        //log the generated new market settlement message
         persistSettlementMessage(marketSettlementMessageDto);
 
         return marketSettlementMessageDto;
@@ -87,25 +92,26 @@ public class SettlementMessageService {
     }
 
     private MarketSettlementMessageDto convertToMarketSettlementMessage(TradeRequest tradeRequest, SsiData ssiData) {
-        MarketSettlementMessageDto marketSettlementMessageDto = new MarketSettlementMessageDto();
-        marketSettlementMessageDto.setTradeId(tradeRequest.getTradeId());
-        marketSettlementMessageDto.setValueDate(tradeRequest.getValueDate());
-        marketSettlementMessageDto.setCurrency(tradeRequest.getCurrency());
-        marketSettlementMessageDto.setMessageId(UUID.randomUUID().toString());
-        marketSettlementMessageDto.setAmount(new BigDecimal(tradeRequest.getAmount()));
-        marketSettlementMessageDto.setSupportingInformation(ssiData.getInfo());
+        PayerPartyDto payerPartyDto = PayerPartyDto.builder()
+                .accountNumber(ssiData.getPayerAccNum())
+                .bankCode(ssiData.getPayerBank())
+                .build();
 
-        PayerPartyDto payerPartyDto = new PayerPartyDto();
-        payerPartyDto.setAccountNumber(ssiData.getPayerAccNum());
-        payerPartyDto.setBankCode(ssiData.getPayerBank());
+        ReceiverPartyDto receiverPartyDto = ReceiverPartyDto.builder()
+                .accountNumber(ssiData.getReceiverAccNum())
+                .bankCode(ssiData.getReceiverBank())
+                .build();
 
-        marketSettlementMessageDto.setPayerParty(payerPartyDto);
-
-        ReceiverPartyDto receiverPartyDto = new ReceiverPartyDto();
-        receiverPartyDto.setAccountNumber(ssiData.getReceiverAccNum());
-        receiverPartyDto.setBankCode(ssiData.getReceiverBank());
-
-        marketSettlementMessageDto.setReceiverParty(receiverPartyDto);
+        MarketSettlementMessageDto marketSettlementMessageDto = MarketSettlementMessageDto.builder()
+                .tradeId(tradeRequest.getTradeId())
+                .valueDate(tradeRequest.getValueDate())
+                .currency(tradeRequest.getCurrency())
+                .messageId(UUID.randomUUID().toString())
+                .amount(new BigDecimal(tradeRequest.getAmount()))
+                .supportingInformation(ssiData.getInfo())
+                .payerParty(payerPartyDto)
+                .receiverParty(receiverPartyDto)
+                .build();
 
         return marketSettlementMessageDto;
     }
