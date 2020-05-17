@@ -38,6 +38,11 @@ public class SettlementMessageService {
     @Transactional(rollbackOn = RuntimeException.class)
     public MarketSettlementMessageDto createNewMarketSettlementMessage(TradeRequestDto tradeRequestDto) throws ApiException {
         log.info("Start creating new MarketSettlementMessage");
+
+        //validate trade request
+        validationService.validate(tradeRequestDto);
+        log.info("TradeRequest validation success");
+
         //check ssi record exists
         SsiData ssiData = ssiDataRepository.findBySsiCode(tradeRequestDto.getSsiCode());
         if (ssiData == null) {
@@ -48,10 +53,6 @@ public class SettlementMessageService {
         if (tradeRequestCheck != null) {
             throw new ApiException(ErrorMessage.TRADE_ID_NOT_ALREADY_EXISTS.getCode(), ErrorMessage.TRADE_ID_NOT_ALREADY_EXISTS.getMessage(), null);
         }
-
-        //validate trade request
-        validationService.validate(tradeRequestDto);
-        log.info("TradeRequest validation success");
 
         //save trade request
         TradeRequest tradeRequestDb = persistTradeRequest(tradeRequestDto);

@@ -63,9 +63,9 @@ class SettlementMessageControllerValidationsTests {
     }
 
     @Test
-    public void create_marketSettlementMessage_ssiCode_mandatory_validation_400() throws Exception {
+    public void create_marketSettlementMessage_ssiCode_notExists_validation_400() throws Exception {
 
-        String tradeRequest = "{}";
+        String tradeRequest = "{\"tradeId\":\"16846548\", \"ssiCode\":\"OCBC_DBS_5\", \"amount\":12894.65, \"currency\":\"USD\", \"valueDate\":\"20022020\"}";
 
         mockMvc.perform(post("/market/settlement_message/create")
                 .content(tradeRequest)
@@ -99,7 +99,7 @@ class SettlementMessageControllerValidationsTests {
         when(ssiDataRepository.findBySsiCode(any(String.class))).thenReturn(ssiData);
         when(tradeRequestRepository.findByTradeId(any(String.class))).thenReturn(null);
 
-        String tradeRequest = "{\"ssiCode\":\"OCBC_DBS_1\"}";
+        String tradeRequest = "{}";
 
         mockMvc.perform(post("/market/settlement_message/create")
                 .content(tradeRequest)
@@ -109,8 +109,9 @@ class SettlementMessageControllerValidationsTests {
                 .andExpect(jsonPath("$.errorCode").value(ErrorMessage.VALIDATION_ERRORS.getCode()))
                 .andExpect(jsonPath("$.errorMessage").value(ErrorMessage.VALIDATION_ERRORS.getMessage()))
                 .andExpect(jsonPath("$.fieldErrors").isArray())
-                .andExpect(jsonPath("$.fieldErrors", hasSize(5)))
+                .andExpect(jsonPath("$.fieldErrors", hasSize(6)))
                 .andExpect(jsonPath("$.fieldErrors.[?(@.fieldCode == \"tradeId\" && @.errorDesc == \"ERR_API_VAL Field 'tradeId' is mandatory\")]").exists())
+                .andExpect(jsonPath("$.fieldErrors.[?(@.fieldCode == \"ssiCode\" && @.errorDesc == \"ERR_API_VAL Field 'ssiCode' is mandatory\")]").exists())
                 .andExpect(jsonPath("$.fieldErrors.[?(@.fieldCode == \"amount\" && @.errorDesc == \"ERR_API_VAL Field 'amount' is mandatory\")]").exists())
                 .andExpect(jsonPath("$.fieldErrors.[?(@.fieldCode == \"amount\" && @.errorDesc == \"ERR_API_VAL Invalid format, value must be a number with optional 2 decimals\")]").exists())
                 .andExpect(jsonPath("$.fieldErrors.[?(@.fieldCode == \"currency\" && @.errorDesc == \"ERR_API_VAL Field 'currency' is mandatory\")]").exists())
