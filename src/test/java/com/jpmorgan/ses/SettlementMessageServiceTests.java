@@ -99,7 +99,7 @@ class SettlementMessageServiceTests {
     }
 
     @Test
-    void convertToMarketSettlementMessage_Test() throws Exception {
+    void createNewMarketSettlementMessage() throws Exception {
         when(ssiDataRepository.findBySsiCode(any(String.class))).thenReturn(ssiData);
         when(tradeRequestRepository.findByTradeId(any(String.class))).thenReturn(null);
         TradeRequest tradeRequest = new TradeRequest();
@@ -107,6 +107,26 @@ class SettlementMessageServiceTests {
         when(tradeRequestRepository.save(any(TradeRequest.class))).thenReturn(tradeRequest);
 
         MarketSettlementMessageDto result = settlementMessageService.createNewMarketSettlementMessage(tradeRequestDto);
+
+        assertEquals(tradeRequestDto.getTradeId(), result.getTradeId());
+        assertEquals(tradeRequestDto.getValueDate(), result.getValueDate());
+        assertEquals(tradeRequestDto.getCurrency(), result.getCurrency());
+        assertEquals(tradeRequestDto.getAmount(), String.valueOf(result.getAmount()));
+        assertEquals(ssiData.getPayerAccNum(), result.getPayerParty().getAccountNumber());
+        assertEquals(ssiData.getPayerBank(), result.getPayerParty().getBankCode());
+        assertEquals(ssiData.getReceiverAccNum(), result.getReceiverParty().getAccountNumber());
+        assertEquals(ssiData.getReceiverBank(), result.getReceiverParty().getBankCode());
+        assertEquals(ssiData.getInfo(), result.getSupportingInformation());
+    }
+
+    @Test
+    void getMarketSettlementMessage() throws Exception {
+        TradeRequest tradeRequest = new TradeRequest();
+        copyProperties(tradeRequestDto, tradeRequest);
+        when(tradeRequestRepository.findByTradeId(any(String.class))).thenReturn(tradeRequest);
+        when(ssiDataRepository.findBySsiCode(any(String.class))).thenReturn(ssiData);
+
+        MarketSettlementMessageDto result = settlementMessageService.getMarketSettlementMessage(tradeRequestDto.getTradeId());
 
         assertEquals(tradeRequestDto.getTradeId(), result.getTradeId());
         assertEquals(tradeRequestDto.getValueDate(), result.getValueDate());
