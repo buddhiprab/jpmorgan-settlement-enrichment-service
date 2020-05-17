@@ -7,7 +7,6 @@ import com.jpmorgan.ses.models.SsiData;
 import com.jpmorgan.ses.models.TradeRequest;
 import com.jpmorgan.ses.repositories.SsiDataRepository;
 import com.jpmorgan.ses.repositories.TradeRequestRepository;
-import com.jpmorgan.ses.services.SettlementMessageService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
