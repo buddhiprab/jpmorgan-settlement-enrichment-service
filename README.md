@@ -1,9 +1,7 @@
 ## Settlements Enrichment Service
 
-Developed by: Buddhi Prabhathtus
+Developed by: Buddhi Prabhath
 
-
-#### How to run the program.
 This API has been developed using below tech stack
 
 * Java 8
@@ -12,6 +10,8 @@ This API has been developed using below tech stack
 * Spring Boot Embedded Tomcat
 * H2 Embedded Database
 * lombok 
+
+#### How to run the program.
 
 Assuming JAVA_HOME environment variable already set to Java 8 sdk in your environment and you have maven installed.
 
@@ -41,6 +41,23 @@ $ java -jar settlement-enrichment-service-0.0.1-SNAPSHOT.jar
 ```
 
 API uses the Spring Boot Embedded Tomcat by default as Web Server and Embedded H2 database as the DB.
+
+##### if successfully started the API you should see in the console the Spring logo and version, at the bottom it should show the port number: Tomcat started on port(s): 8080 (http)
+
+```
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.0.RELEASE)
+
+... 
+...
+
+Tomcat started on port(s): 8080 (http) with context path ''
+```
 
 #### How to run all the unit tests.
 
