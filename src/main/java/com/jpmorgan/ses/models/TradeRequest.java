@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
+/*created by Buddhi*/
+
 @Data
 @Entity
 @Table(schema = "api", name = "trade_request")

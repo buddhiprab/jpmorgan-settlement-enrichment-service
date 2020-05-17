@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.util.List;
 
+/*created by Buddhi*/
+
 @Data
 public class ErrorResponseDto {
     private String errorCode;

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/*created by Buddhi*/
+
 @Component
 public class CorrelationInterceptor extends HandlerInterceptorAdapter {
     private static final String CORRELATION_ID_HEADER_NAME = "X-Correlation-Id";

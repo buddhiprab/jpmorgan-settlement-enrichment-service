@@ -4,6 +4,8 @@ import com.jpmorgan.ses.models.FieldError;
 
 import java.util.List;
 
+/*created by Buddhi*/
+
 public class ApiException extends Exception {
     private String code;
     private List<FieldError> fieldErrors;

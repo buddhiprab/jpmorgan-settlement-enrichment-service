@@ -3,6 +3,8 @@ package com.jpmorgan.ses;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/*created by Buddhi*/
+
 @SpringBootApplication
 public class Application {
 

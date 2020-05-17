@@ -1,5 +1,7 @@
 package com.jpmorgan.ses.enums;
 
+/*created by Buddhi*/
+
 public enum ErrorMessage {
     WE_CANT_PROCESS_REQUEST("ERR_API_0001", "Sorry we can't process your request"),
     INVALID_REQUEST_JSON("ERR_API_0002", "invalid Reqeust JSON"),

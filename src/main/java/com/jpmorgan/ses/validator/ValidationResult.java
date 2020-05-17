@@ -5,6 +5,8 @@ import com.jpmorgan.ses.models.FieldError;
 import java.util.LinkedList;
 import java.util.List;
 
+/*created by Buddhi*/
+
 public class ValidationResult {
     private boolean validationStatus;
     private List<FieldError> fieldErrors;

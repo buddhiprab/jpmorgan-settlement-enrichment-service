@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/*created by Buddhi*/
+
 @Data
 @Entity
 @Table(schema = "api", name = "ssi_data")
