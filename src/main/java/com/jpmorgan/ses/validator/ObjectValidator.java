@@ -29,9 +29,9 @@ public class ObjectValidator<T> {
             return previous;
         }
 
-        List<FieldError> errors = fieldValidators.stream().map(validator -> {
-            R value = (R) validator.getter().apply(target);
-            return validator.validate(value, objectName);
+        List<FieldError> errors = fieldValidators.stream().map(fieldValidator -> {
+            R value = (R) fieldValidator.getter().apply(target);
+            return fieldValidator.validate(value, objectName);
         }).filter(Objects::nonNull).collect(Collectors.toList());
         if (!errors.isEmpty()) {
             previous.getFieldErrors().addAll(errors);

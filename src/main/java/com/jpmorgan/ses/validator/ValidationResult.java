@@ -8,7 +8,6 @@ import java.util.List;
 /*created by Buddhi*/
 
 public class ValidationResult {
-    private boolean validationStatus;
     private List<FieldError> fieldErrors;
 
     public boolean hasValidationErrors() {
